@@ -1,0 +1,26 @@
+{
+  "name": "db_employeebirthdays",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlexanderVak/InCamp_DB_EmployeesBirthdays.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlexanderVak/InCamp_DB_EmployeesBirthdays/issues"
+  },
+  "homepage": "https://github.com/AlexanderVak/InCamp_DB_EmployeesBirthdays#readme",
+  "devDependencies": {
+    "@babel/core": "^7.14.8",
+    "@babel/preset-env": "^7.14.9",
+    "babel-jest": "^27.0.6",
+    "jest": "^27.0.6"
+  }
+}
