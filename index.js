@@ -1,47 +1,32 @@
-import Pool from "pg-pool"
+import Client from "pg-pool"
+import moment from 'moment';
+import 'moment/locale/uk.js';
+import { employeesGroupedByMonths, employeesSortedByDay, planningHorizon, showListOfEmployeesBirthdays } from "./employeesBirthdays.js"
 
-const pool = new Pool({
+const client = new Client({
     user: 'employees_app',
     database: 'employees',
     password: 'password'
 })
 
-// pool.query('SELECT * FROM employees',(err, res) => {
-//     if (err) {
-//         throw err
-//     }
-//     for (const row of res.rows) {
-//         console.log(row);    
-//     }
+let employees = []
 
-// })
-
-pool.query('select name from employees where extract (month from birthday)=4 ', (err, res) => {
-    if (err) {
-        throw err
-    }
+async function selectFrom(){
+    await client.connect()
+    const res = await client.query('SELECT * FROM employees')
     for (const row of res.rows) {
-        console.log(row);
+        row.birthday = moment(row.birthday)
+        employees.push(row);
     }
-})
+    return employees
+    await client.end()
+}
 
-pool.query('select name, date_part(\'year\', age($1, birthday)) as age from employees', [new Date()], (err, res) => {
-    if (err) {
-        throw err
-    }
-    for (const row of res.rows) {
-        console.log(row);
-    }
-})
 
-pool.query('select name, date_part(\'day\', age($1, birthday)) as birthday from employees order by date_part(\'day\', age($1, birthday))', [new Date()], (err, res) => {
-    if (err) {
-        throw err
-    }
-    for (const row of res.rows) {
-        console.log(row);
-    }
-})
-
+async function showEmployees(){
+    let result = await selectFrom()
+    console.log(showListOfEmployeesBirthdays(planningHorizon(2, employeesSortedByDay(employeesGroupedByMonths(result)))));
+}
+showEmployees()
 
 
