@@ -1,4 +1,4 @@
-import { age, employeesGroupedByMonths, employeesSortedByDay, planningHorizon, showListOfEmployeesBirthdays} from './employeesBirthdays.js'
+import { age, employeesGroupedByMonths, employeesSortedByDay, planningHorizon, employeesBirthdaysToString} from './employeesBirthdays.js'
 import moment from 'moment';
 
 const input = [
@@ -37,7 +37,7 @@ describe('employee birthdays', () => {
         ])
     });
     it('should return group employees with same birthday month', () => {
-        expect(showListOfEmployeesBirthdays(planningHorizon(2, employeesSortedByDay(employeesGroupedByMonths(input))))).toEqual('серпень 2021\n(12) - Діо Брандо (34 роки)\n(16) - Роберт Спідвагон (35 років)\nвересень 2021\n(27) - Джозеф Джостар (24 роки)\nжовтень 2021\n(3) - Жан П`єр Польнареф (20 років)\n(25) - Чезаре Зепеллі (24 роки)\n')
+        expect(employeesBirthdaysToString(planningHorizon(2, employeesSortedByDay(employeesGroupedByMonths(input))))).toEqual('серпень 2021\n(12) - Діо Брандо (34 роки)\n(16) - Роберт Спідвагон (35 років)\nвересень 2021\n(27) - Джозеф Джостар (24 роки)\nжовтень 2021\n(3) - Жан П`єр Польнареф (20 років)\n(25) - Чезаре Зепеллі (24 роки)\n')
     });
 
 });

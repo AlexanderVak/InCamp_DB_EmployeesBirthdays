@@ -1,5 +1,16 @@
+#!/usr/bin/env node
 import moment from 'moment';
 import 'moment/locale/uk.js';
+import { selectFrom } from './index.js';
+
+const horizon = Number(process.argv[2])
+// node employeesBirthdays.js 2
+async function showEmployees(horizon){
+    let result = await selectFrom()
+    console.log(employeesBirthdaysToString(planningHorizon(horizon, employeesSortedByDay(employeesGroupedByMonths(result)))));
+}
+
+showEmployees(horizon)
 
 export function age(employee){
     let today = moment()
@@ -55,7 +66,7 @@ function pluralize(age, one, few, many) {
             return `${age} ${one}`
     }
 }
-export function showListOfEmployeesBirthdays(employees){
+export function employeesBirthdaysToString(employees){
     let currentDate = moment()
     let futureDate = moment()
     let innerText = ''

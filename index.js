@@ -1,7 +1,7 @@
 import Client from "pg-pool"
 import moment from 'moment';
 import 'moment/locale/uk.js';
-import { employeesGroupedByMonths, employeesSortedByDay, planningHorizon, showListOfEmployeesBirthdays } from "./employeesBirthdays.js"
+import { employeesGroupedByMonths, employeesSortedByDay, planningHorizon, employeesBirthdaysToString } from "./employeesBirthdays.js"
 
 const client = new Client({
     user: 'employees_app',
@@ -11,7 +11,7 @@ const client = new Client({
 
 let employees = []
 
-async function selectFrom(){
+export async function selectFrom(){
     await client.connect()
     const res = await client.query('SELECT * FROM employees')
     for (const row of res.rows) {
@@ -23,10 +23,6 @@ async function selectFrom(){
 }
 
 
-async function showEmployees(){
-    let result = await selectFrom()
-    console.log(showListOfEmployeesBirthdays(planningHorizon(2, employeesSortedByDay(employeesGroupedByMonths(result)))));
-}
-showEmployees()
+
 
 
